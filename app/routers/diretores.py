@@ -54,8 +54,10 @@ def deletar_diretor(diretor_id: int, db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Diretor não encontrado"
+            
         )
     
     db.delete(diretor)
     db.commit()
+    print("teste")
     return None
