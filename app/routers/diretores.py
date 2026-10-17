@@ -47,3 +47,17 @@ def atualizar_diretor(diretor_id: int, diretor_in: DiretorUpdate, db: Session = 
     db.refresh(diretor)
     return diretor
 
+@router.delete("/{diretor_id}", status_code=status.HTTP_204_NO_CONTENT)
+def deletar_diretor(diretor_id: int, db: Session = Depends(get_db)):
+    diretor = db.query(Diretor).filter(Diretor.id == diretor_id).first()
+    if not diretor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Diretor não encontrado"
+            
+        )
+    
+    db.delete(diretor)
+    db.commit()
+    print("teste")
+    return None
